@@ -1,34 +1,13 @@
 # data-crunch-engine
 
-```text
-*** THE DEPLOY IS UNDER CONSTRUCTION - CHECK BACK SOON ***
-```
-
 [![Go Report Card](https://goreportcard.com/badge/github.com/JeffDeCola/data-crunch-engine)](https://goreportcard.com/report/github.com/JeffDeCola/data-crunch-engine)
 [![GoDoc](https://godoc.org/github.com/JeffDeCola/data-crunch-engine?status.svg)](https://godoc.org/github.com/JeffDeCola/data-crunch-engine)
-[![Maintainability](https://api.codeclimate.com/v1/badges/590031ce916f257f599f/maintainability)](https://codeclimate.com/github/JeffDeCola/data-crunch-engine/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/6ed9dfb17eedad9c40ee/maintainability)](https://codeclimate.com/github/JeffDeCola/data-crunch-engine/maintainability)
 [![Issue Count](https://codeclimate.com/github/JeffDeCola/data-crunch-engine/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/data-crunch-engine/issues)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
 
-`data-crunch-engine` _will test, build, push (to DockerHub) and deploy
-a long running "hello-world" Docker Image to Amazon Elastic Container Service (ecs)._
-
-I also have other repos showing different deployments,
-
-* PaaS
-  * [hello-go-deploy-aws-elastic-beanstalk](https://github.com/JeffDeCola/hello-go-deploy-aws-elastic-beanstalk)
-  * [hello-go-deploy-azure-app-service](https://github.com/JeffDeCola/hello-go-deploy-azure-app-service)
-  * [hello-go-deploy-gae](https://github.com/JeffDeCola/hello-go-deploy-gae)
-  * [hello-go-deploy-marathon](https://github.com/JeffDeCola/hello-go-deploy-marathon)
-* CaaS
-  * [data-crunch-engine](https://github.com/JeffDeCola/data-crunch-engine)
-  * [hello-go-deploy-amazon-eks](https://github.com/JeffDeCola/hello-go-deploy-amazon-eks)
-  * [hello-go-deploy-aks](https://github.com/JeffDeCola/hello-go-deploy-aks)
-  * [hello-go-deploy-gke](https://github.com/JeffDeCola/hello-go-deploy-gke)
-* IaaS
-  * [data-crunch-engine](https://github.com/JeffDeCola/data-crunch-engine)
-  * [hello-go-deploy-azure-vm](https://github.com/JeffDeCola/hello-go-deploy-azure-vm)
-  * [hello-go-deploy-gce](https://github.com/JeffDeCola/hello-go-deploy-gce)
+`data-crunch-engine` _is a small asynchronous microservice that will receive data,
+crunch data and return the results._
 
 The `data-crunch-engine`
 [Docker Image](https://hub.docker.com/r/jeffdecola/data-crunch-engine)
@@ -51,20 +30,12 @@ To push a docker image you will need,
 
 * [DockerHub account](https://hub.docker.com/)
 
-To deploy to `amazon ecs` you will need,
-
-* [amazon elastic container service (ecs)](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/service-architectures/containers-as-a-service/amazon-elastic-container-service-cheat-sheet)
-
 As a bonus, you can use Concourse CI to run the scripts,
 
 * [concourse](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/continuous-integration-continuous-deployment/concourse-cheat-sheet)
   (Optional)
 
-## EXAMPLES
-
-This repo may have a few examples. We will deploy example 1.
-
-### EXAMPLE 1
+## RUN
 
 To run from the command line,
 
