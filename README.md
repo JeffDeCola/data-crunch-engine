@@ -52,6 +52,8 @@ Hello everyone, count is: 3
 etc...
 ```
 
+![IMAGE - data-crunch-engine - IMAGE](docs/pics/data-crunch-engine.jpg)
+
 ## STEP 1 - TEST
 
 Lets unit test the code,
