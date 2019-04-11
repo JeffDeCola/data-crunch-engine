@@ -1,0 +1,20 @@
+# data-crunch-engine task-build-push.yml
+
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: golang
+    tag: 1.11
+
+inputs:
+- name: data-crunch-engine
+
+outputs:
+- name: dist
+
+run:
+  path: ./data-crunch-engine/ci/scripts/build-push.sh
+  # args: [-debug]
+
