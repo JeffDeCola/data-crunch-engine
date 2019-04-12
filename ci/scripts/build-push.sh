@@ -42,8 +42,8 @@ mkdir -p src/github.com/JeffDeCola/
 cp -R ./data-crunch-engine src/github.com/JeffDeCola/.
 echo " "
 
-echo "cd src/github.com/JeffDeCola/data-crunch-engine/example-01"
-cd src/github.com/JeffDeCola/data-crunch-engine/example-01
+echo "cd src/github.com/JeffDeCola/data-crunch-engine"
+cd src/github.com/JeffDeCola/data-crunch-engine
 echo " "
 
 echo "Check that you are set and everything is in the right place for go:"
@@ -60,11 +60,11 @@ cd "$GOPATH/dist"
 echo " "
 
 echo "cp the binary into /dist"
-cp "$GOPATH/src/github.com/JeffDeCola/data-crunch-engine/example-01/bin/hello-go" .
+cp "$GOPATH/src/github.com/JeffDeCola/data-crunch-engine/bin/hello-go" .
 echo " "
 
 echo "cp the Dockerfile into /dist"
-cp "$GOPATH/src/github.com/JeffDeCola/data-crunch-engine/example-01/build-push/Dockerfile" .
+cp "$GOPATH/src/github.com/JeffDeCola/data-crunch-engine/build-push/Dockerfile" .
 echo " "
 
 echo "Make it executable by all - chmod +x"
