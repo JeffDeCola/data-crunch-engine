@@ -60,7 +60,7 @@ cd "$GOPATH/dist"
 echo " "
 
 echo "cp everything into /dist"
-cp -r "$GOPATH/src/github.com/JeffDeCola/data-crunch-engine/*" .
+cp -r "$GOPATH/src/github.com/JeffDeCola/data-crunch-engine/" .
 echo " "
 
 echo "cp the Dockerfile into /dist"
