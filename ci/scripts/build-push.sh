@@ -51,25 +51,25 @@ echo "gopath is: $GOPATH"
 echo "pwd is: $PWD"
 ls -la
 
-echo "Create a binary hello-go in /bin"
-go build -o bin/hello-go main.go
-echo ""
+#echo "Create a binary hello-go in /bin"
+#go build -o bin/hello-go main.go
+#echo ""
 
 echo "cd to the /dist directory"
 cd "$GOPATH/dist"
 echo " "
 
-echo "cp the binary into /dist"
-cp "$GOPATH/src/github.com/JeffDeCola/data-crunch-engine/bin/hello-go" .
+echo "cp everything into /dist"
+cp -r "$GOPATH/src/github.com/JeffDeCola/data-crunch-engine/*" .
 echo " "
 
 echo "cp the Dockerfile into /dist"
 cp "$GOPATH/src/github.com/JeffDeCola/data-crunch-engine/build-push/Dockerfile" .
 echo " "
 
-echo "Make it executable by all - chmod +x"
-chmod +x hello-go
-echo " "
+#echo "Make it executable by all - chmod +x"
+#chmod +x hello-go
+#echo " "
 
 echo "List whats in the /dist directory"
 ls -la
