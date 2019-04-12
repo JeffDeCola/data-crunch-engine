@@ -13,10 +13,6 @@ To push a docker image you will need,
 
 * [DockerHub account](https://hub.docker.com/)
 
-To deploy to aws you will need,
-
-* [amazon web services (aws)](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/infrastructure-as-a-service/cloud-services-compute/amazon-web-services-cheat-sheet)
-
 As a bonus, you can use Concourse CI to run the scripts,
 
 * [concourse](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/continuous-integration-continuous-deployment/concourse-cheat-sheet)
@@ -30,7 +26,7 @@ To run from the command line,
 go run main.go
 ```
 
-Every 2 seconds `hello-go-deploy-aws` will print:
+Every 2 seconds `data-crunch-engine` will print:
 
 ```bash
 Hello everyone, count is: 1
@@ -38,6 +34,8 @@ Hello everyone, count is: 2
 Hello everyone, count is: 3
 etc...
 ```
+
+![IMAGE - data-crunch-engine - IMAGE](pics/data-crunch-engine.jpg)
 
 ## STEP 1 - TEST
 
@@ -47,11 +45,9 @@ Lets unit test the code,
 go test -cover ./... | tee /test/test_coverage.txt
 ```
 
-This script runs the above command
-[/test/unit-tests.sh](https://github.com/JeffDeCola/hello-go-deploy-aws/tree/master/test/unit-tests.sh).
-
-This script runs the above command in concourse
-[/ci/scripts/unit-test.sh](https://github.com/JeffDeCola/hello-go-deploy-aws/tree/master/ci/scripts/unit-tests.sh).
+There is a `unit-tests.sh` script to run the unit tests.
+There is also a script in the /ci folder to run the unit tests
+in concourse.
 
 ## STEP 2 - BUILD (DOCKER IMAGE)
 
@@ -76,7 +72,7 @@ Build your docker image from binary `hello-go`
 using `Dockerfile`,
 
 ```bash
-docker build -t jeffdecola/hello-go-deploy-aws .
+docker build -t jeffdecola/data-crunch-engine .
 ```
 
 Obviously, replace `jeffdecola` with your DockerHub username.
@@ -87,19 +83,17 @@ Check your docker images on your machine,
 docker images
 ```
 
-It will be listed as `jeffdecola/hello-go-deploy-aws`
+It will be listed as `jeffdecola/data-crunch-engine`
 
 You can test your dockerhub image,
 
 ```bash
-docker run jeffdecola/hello-go-deploy-aws
+docker run jeffdecola/data-crunch-engine
 ```
 
-This script runs the above commands
-[/build-push/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-aws/tree/master/build-push/build-push.sh).
-
-This script runs the above commands in concourse
-[/ci/scripts/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-aws/tree/master/ci/scripts/build-push.sh).
+There is a `build-push.sh` script to build and push to DockerHub.
+There is also a script in the /ci folder to build and push
+in concourse.
 
 ## STEP 3 - PUSH (TO DOCKERHUB)
 
@@ -111,65 +105,46 @@ If you are not logged in, you need to login to dockerhub,
 docker login
 ```
 
-Once logged in you can push,
+Once logged in you can push to DockerHub
 
 ```bash
-docker push jeffdecola/hello-go-deploy-aws
+docker push jeffdecola/data-crunch-engine
 ```
 
 Check you image at DockerHub. My image is located
-[https://hub.docker.com/r/jeffdecola/hello-go-deploy-aws](https://hub.docker.com/r/jeffdecola/hello-go-deploy-aws).
+[https://hub.docker.com/r/jeffdecola/data-crunch-engine](https://hub.docker.com/r/jeffdecola/data-crunch-engine).
 
-This script runs the above commands
-[/build-push/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-aws/tree/master/build-push/build-push.sh).
+There is a `build-push.sh` script to build and push to DockerHub.
+There is also a script in the /ci folder to build and push
+in concourse.
 
-This script runs the above commands in concourse
-[/ci/scripts/build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-aws/tree/master/ci/scripts/build-push.sh).
+## STEP 4 - DEPLOY
 
-## STEP 4 - DEPLOY (TO MARATHON)
-
-Lets pull the `hello-go-deploy-aws` docker image
-from DockerHub and deploy to mesos/marathon.
-
-This is actually very simple, you just PUT the
-[/deploy/app.json](https://github.com/JeffDeCola/hello-go-deploy-aws/tree/master/deploy/app.json)
-file to mesos/marathon. This json file tells marathon what to do.
-
-```bash
-curl -X PUT http://10.141.141.10:8080/v2/apps/hello-go-long-running \
--d @app.json \
--H "Content-type: application/json"
-```
-
-This script runs the above commands
-[/deploy/deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-aws/tree/master/deploy/deploy.sh).
-
-This script runs the above commands in concourse
-[/ci/scripts/deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-aws/tree/master/ci/scripts/deploy.sh).
+tbd
 
 ## TEST, BUILT, PUSH & DEPLOY USING CONCOURSE (OPTIONAL)
 
 For fun, I use concourse to automate the above steps.
 
-A pipeline file [pipeline.yml](https://github.com/JeffDeCola/hello-go-deploy-aws/tree/master/ci/pipeline.yml)
+A pipeline file [pipeline.yml](https://github.com/JeffDeCola/data-crunch-engine/tree/master/ci/pipeline.yml)
 shows the entire ci flow. Visually, it looks like,
 
-![IMAGE - hello-go-deploy-aws concourse ci pipeline - IMAGE](pics/hello-go-deploy-aws-pipeline.jpg)
+![IMAGE - data-crunch-engine concourse ci pipeline - IMAGE](pics/data-crunch-engine-pipeline.jpg)
 
 The `jobs` and `tasks` are,
 
 * `job-readme-github-pages` runs task
-  [readme-github-pages.sh](https://github.com/JeffDeCola/hello-go-deploy-aws/tree/master/ci/scripts/readme-github-pages.sh).
+  [readme-github-pages.sh](https://github.com/JeffDeCola/data-crunch-engine/tree/master/ci/scripts/readme-github-pages.sh).
 * `job-unit-tests` runs task
-  [unit-tests.sh](https://github.com/JeffDeCola/hello-go-deploy-aws/tree/master/ci/scripts/unit-tests.sh).
+  [unit-tests.sh](https://github.com/JeffDeCola/data-crunch-engine/tree/master/ci/scripts/unit-tests.sh).
 * `job-build-push` runs task
-  [build-push.sh](https://github.com/JeffDeCola/hello-go-deploy-aws/tree/master/ci/scripts/build-push.sh).
+  [build-push.sh](https://github.com/JeffDeCola/data-crunch-engine/tree/master/ci/scripts/build-push.sh).
 * `job-deploy` runs task
-  [deploy.sh](https://github.com/JeffDeCola/hello-go-deploy-aws/tree/master/ci/scripts/deploy.sh).
+  [deploy.sh](https://github.com/JeffDeCola/data-crunch-engine/tree/master/ci/scripts/deploy.sh).
 
 The concourse `resources type` are,
 
-* `hello-go-deploy-aws` uses a resource type
+* `data-crunch-engine` uses a resource type
   [docker-image](https://hub.docker.com/r/concourse/git-resource/)
   to PULL a repo from github.
 * `resource-dump-to-dockerhub` uses a resource type
