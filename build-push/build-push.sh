@@ -22,24 +22,34 @@ echo "cd up to code"
 cd ..
 echo " "
 
-echo "Create a binary hello-go in /bin"
-go build -o bin/hello-go main.go
-echo " "
+#echo "Create a binary hello-go in /bin"
+#go build -o bin/hello-go main.go
+#echo " "
 
-echo "Copy the binary in /build-push because docker needs it with Dockerfile"
-cp bin/hello-go build-push/.
-echo " "
+#echo "Copy the binary in /build-push because docker needs it with Dockerfile"
+#cp bin/hello-go build-push/.
+#echo " "
 
-echo "cd build-push"
-cd build-push
-echo " "
+#echo "cd build-push"
+#cd build-push
+#echo " "
 
 echo "Build your docker image from binary /bin/hello-go using /build-push/Dockerfile"
-docker build -t jeffdecola/data-crunch-engine .
+docker build -f build-push/Dockerfile -t jeffdecola/data-crunch-engine .
+echo " "
+
+echo "Image size"
+docker images jeffdecola/data-crunch-engine:latest
 echo " "
 
 echo "Assuming you are logged in, lets push your built docker image to DockerHub"
 docker push jeffdecola/data-crunch-engine
+echo " "
+
+echo "Useful commands:"
+echo "     docker run --name data-crunch-engine -dit jeffdecola/data-crunch-engine"
+echo "     docker exec -i -t data-crunch-engine /bin/bash"
+echo "     docker logs data-crunch-engine"
 echo " "
 
 echo "************************************************************************"
