@@ -6,8 +6,11 @@
 [![Issue Count](https://codeclimate.com/github/JeffDeCola/data-crunch-engine/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/data-crunch-engine/issues)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
 
-`data-crunch-engine` _is a small asynchronous microservice that will receive data,
-crunch data and return the results._
+`data-crunch-engine` _is a placeholder to add in your data crunching algorithms.
+It is built using go as a lightweight asynchronous microservice
+that will receive data, crunch data and return the results.
+
+
 
 The `data-crunch-engine`
 [Docker Image](https://hub.docker.com/r/jeffdecola/data-crunch-engine)
@@ -15,6 +18,15 @@ on DockerHub.
 
 The `data-crunch-engine`
 [GitHub Webpage](https://jeffdecola.github.io/data-crunch-engine/).
+
+## OVERVIEW
+
+* Protobuf over NATS
+* Writing in go
+* Utilizing goroutines (concurrency)
+* Docker container
+
+![IMAGE - data-crunch-engine-high-level-view - IMAGE](docs/pics/data-crunch-engine-high-level-view.jpg)
 
 ## PREREQUISITES
 
