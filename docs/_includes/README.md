@@ -1,5 +1,14 @@
 
-# PREREQUISITES
+# OVERVIEW
+
+* Protobuf over NATS
+* Writing in go
+* Utilizing goroutines (concurrency)
+* Docker container
+
+![IMAGE - data-crunch-engine-high-level-view - IMAGE](pics/data-crunch-engine-high-level-view.jpg)
+
+## PREREQUISITES
 
 For this exercise I used go.  Feel free to use a language of your choice,
 
