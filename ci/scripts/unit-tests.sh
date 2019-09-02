@@ -46,8 +46,8 @@ echo "cp -R ./data-crunch-engine $GOPATH/src/github.com/JeffDeCola/."
 cp -R "./data-crunch-engine" "$GOPATH/src/github.com/JeffDeCola/."
 echo " "
 
-echo "cd $GOPATH/src/github.com/JeffDeCola/data-crunch-engine"
-cd "$GOPATH/src/github.com/JeffDeCola/data-crunch-engine"
+echo "cd $GOPATH/src/github.com/JeffDeCola/data-crunch-engine/example-01"
+cd "$GOPATH/src/github.com/JeffDeCola/data-crunch-engine/example-01"
 echo " "
 
 echo "Check that you are set and everything is in the right place for go:"
