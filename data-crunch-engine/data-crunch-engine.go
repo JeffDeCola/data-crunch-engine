@@ -113,8 +113,8 @@ func main() {
 		checkErr(err)
 
 		// SEND
-		// NATS - REQUEST & REPLY on "foo" (THE PIPE)
-		log.Printf("   Send request msg to subject 'foo'\n")
+		// NATS - REQUEST & REPLY on "results" (THE PIPE)
+		log.Printf("   Send request msg to subject 'results'\n")
 		reply, err := nc.Request("results", msg, replyWaitTime*time.Second)
 		checkErr(err)
 
