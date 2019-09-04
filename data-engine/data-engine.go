@@ -24,6 +24,8 @@ func checkErr(err error) {
 
 func main() {
 
+    timeStart := time.Now().UTC()
+
 	// CONNECT TO NATS (nats-server)
 	nc, err := nats.Connect("nats://127.0.0.1:4222")
 	checkErr(err)
