@@ -7,7 +7,10 @@ echo "*********************************************** makeproto.sh (START) *"
 echo " "
 
 echo "protoc --go_out=. messages.proto"
-protoc --go_out=. messages.proto
+protoc -I. \
+    -I$GOPATH/src \
+    -I$GOPATH/src/github.com/golang/protobuf/ptypes/timestamp/timestamp.proto \
+    --go_out=. messages.proto
 echo " "
 
 echo "cp messages.pb.go ../data-crunch-engine/."
