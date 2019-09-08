@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package main;
 
-import "google/protobuf/timestamp.proto";
+import "github.com/golang/protobuf/ptypes/timestamp/timestamp.proto";
 
 message MyData {
     int64 ID = 1;
