@@ -6,33 +6,32 @@
 [![Issue Count](https://codeclimate.com/github/JeffDeCola/data-crunch-engine/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/data-crunch-engine/issues)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
 
-`data-crunch-engine` _is a placeholder to add in your data crunching algorithms.
-It is built using go as a lightweight asynchronous microservice
+`data-crunch-engine` _is a placeholder to add in your data
+crunching algorithms.
+It is built as a using go as a lightweight docker image
 that will receive data, crunch data and return the results.
+This microservice uses protobuf over NATS as an interface.
 
-
-
-The `data-crunch-engine`
-[Docker Image](https://hub.docker.com/r/jeffdecola/data-crunch-engine)
-on DockerHub.
+* The `data-crunch-engine`
+  [Docker Image](https://hub.docker.com/r/jeffdecola/data-crunch-engine)
+  on DockerHub.
 
 The `data-crunch-engine`
 [GitHub Webpage](https://jeffdecola.github.io/data-crunch-engine/).
-
-## OVERVIEW
-
-* Protobuf over NATS
-* Writing in go
-* Utilizing goroutines (concurrency)
-* Docker container
-
-![IMAGE - data-crunch-engine-high-level-view - IMAGE](docs/pics/data-crunch-engine-high-level-view.jpg)
 
 ## PREREQUISITES
 
 For this exercise I used go.  Feel free to use a language of your choice,
 
 * [go](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/languages/go-cheat-sheet)
+
+To create your protobuf message files your will need protobuf compiler `protoc`,
+
+* [protobuf](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/software-architectures/messaging/protobuf-cheat-sheet)
+
+You will need a NATS server running,
+
+* [NATS](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/software-architectures/messaging/NATS-cheat-sheet)
 
 To build a docker image you will need docker on your machine,
 
@@ -47,24 +46,35 @@ As a bonus, you can use Concourse CI to run the scripts,
 * [concourse](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/continuous-integration-continuous-deployment/concourse-cheat-sheet)
   (Optional)
 
-## RUN
+## OVERVIEW
 
-To run from the command line,
+* Lightweight Docker Image
+* Protobuf over NATS
+* Written in go
+* Utilizing goroutines (concurrency)
 
-```bash
-go run main.go
-```
+![IMAGE - data-crunch-engine-high-level-view - IMAGE](docs/pics/data-crunch-engine-high-level-view.jpg)
 
-Every 2 seconds `data-crunch-engine` will print:
-
-```bash
-Hello everyone, count is: 1
-Hello everyone, count is: 2
-Hello everyone, count is: 3
-etc...
-```
+And a more detailed view of the data-crunch engine,
 
 ![IMAGE - data-crunch-engine - IMAGE](docs/pics/data-crunch-engine.jpg)
+
+## RUN USING GO
+
+Start your NATS server,
+
+```bash
+nats-server -DV -p 4222 -a 127.0.0.1
+```
+
+In separate terminals start the `data-engine`, the `data-crunch-engine`
+and the `results-engine` respectively,
+
+```bash
+go run data-engine.go messages.pb.go
+go run data-crunch-engine.go messages.pb.go
+go run results-engine.go messages.pb.go
+```
 
 ## STEP 1 - TEST
 
