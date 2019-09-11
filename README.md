@@ -21,15 +21,17 @@ The `data-crunch-engine`
 
 ## PREREQUISITES
 
-For this exercise I used go.  Feel free to use a language of your choice,
+Thing you must have on your machine in order to use this repo.
+
+First the language. I used golang,
 
 * [go](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/languages/go-cheat-sheet)
 
-To create your protobuf message files your will need protobuf compiler `protoc`,
+To create your protobuf message files your will need the protobuf compiler `protoc`,
 
 * [protobuf](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/software-architectures/messaging/protobuf-cheat-sheet)
 
-You will need a NATS server running,
+You will also need running NATS server,
 
 * [NATS](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/software-architectures/messaging/NATS-cheat-sheet)
 
@@ -48,20 +50,57 @@ As a bonus, you can use Concourse CI to run the scripts,
 
 ## OVERVIEW
 
-* Lightweight Docker Image
-* Protobuf over NATS
+This `data-crunch-engine` is,
+
 * Written in go
-* Utilizing goroutines (concurrency)
+* Utilizes goroutines (concurrency)
+* Uses protobuf over NATS for messaging
+* Built to a lightweight Docker Image
+
+This illustration shows a high level view,
 
 ![IMAGE - data-crunch-engine-high-level-view - IMAGE](docs/pics/data-crunch-engine-high-level-view.jpg)
+
+Notice that you may have multiple `data-crunch-engine`s running.
 
 And a more detailed view of the data-crunch engine,
 
 ![IMAGE - data-crunch-engine - IMAGE](docs/pics/data-crunch-engine.jpg)
 
+## PROTOCOL COMPILE FOR GO
+
+The protocol buffer human readable file is located
+[here](https://github.com/JeffDeCola/data-crunch-engine/blob/master/proto/messages.proto)
+
+The two interfaces have been defined as,
+
+```proto
+message MyData {
+    int64 ID = 1;
+    int64 Data = 2;
+    string Meta = 3;
+}
+```
+
+```proto
+message MyResult {
+    int64 ID = 1;
+    int64 Data = 2;
+    string Meta = 3;
+    google.protobuf.Timestamp DTimeStamp = 4;
+    int64 RData = 5;
+    google.protobuf.Timestamp ProcessTime = 6;
+}
+```
+
+This file has already been compiled, but you may recompile it using the shell script.
+
 ## RUN USING GO
 
-Start your NATS server,
+Lets run this thing using go. Then we will go threw the process of
+creating a docker image and deploying.
+
+First, start your NATS server,
 
 ```bash
 nats-server -DV -p 4222 -a 127.0.0.1
@@ -76,7 +115,11 @@ go run data-crunch-engine.go messages.pb.go
 go run results-engine.go messages.pb.go
 ```
 
-## STEP 1 - TEST
+## RUN USING THE DOCKER IMAGE
+
+Now lets take the design and create the docker image.
+
+### STEP 1 - TEST
 
 Lets unit test the code,
 
@@ -88,7 +131,7 @@ There is a `unit-tests.sh` script to run the unit tests.
 There is also a script in the /ci folder to run the unit tests
 in concourse.
 
-## STEP 2 - BUILD (DOCKER IMAGE VIA DOCKERFILE)
+### STEP 2 - BUILD (DOCKER IMAGE VIA DOCKERFILE)
 
 We will be using a multi-stage build using a Dockerfile.
 The end result will be a very small docker image around 13MB.
@@ -129,7 +172,7 @@ There is a `build-push.sh` script to build and push to DockerHub.
 There is also a script in the /ci folder to build and push
 in concourse.
 
-## STEP 3 - PUSH (TO DOCKERHUB)
+### STEP 3 - PUSH (TO DOCKERHUB)
 
 Lets push your docker image to DockerHub.
 
@@ -153,6 +196,10 @@ There is also a script in the /ci folder to build and push
 in concourse.
 
 ## STEP 4 - DEPLOY
+
+Now lets deploy, I choose gce, but feel free to deploy to anything you want.
+
+### DEPLOY TO GCE
 
 tbd
 
