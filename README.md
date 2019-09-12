@@ -74,6 +74,15 @@ The protocol buffer human readable file is located
 
 The two interfaces have been defined as,
 
+```go
+// Check your error
+func checkErr(err error) {
+    if err != nil {
+        log.Fatal("ERROR:", err)
+    }
+}
+```
+
 ```proto
 message MyData {
     int64 ID = 1;
