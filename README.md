@@ -1,5 +1,9 @@
 # data-crunch-engine
 
+```text
+*** THE REPO IS UNDER CONSTRUCTION - CHECK BACK SOON ***
+```
+
 [![Go Report Card](https://goreportcard.com/badge/github.com/JeffDeCola/data-crunch-engine)](https://goreportcard.com/report/github.com/JeffDeCola/data-crunch-engine)
 [![GoDoc](https://godoc.org/github.com/JeffDeCola/data-crunch-engine?status.svg)](https://godoc.org/github.com/JeffDeCola/data-crunch-engine)
 [![Maintainability](https://api.codeclimate.com/v1/badges/6ed9dfb17eedad9c40ee/maintainability)](https://codeclimate.com/github/JeffDeCola/data-crunch-engine/maintainability)
