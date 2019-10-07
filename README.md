@@ -10,11 +10,9 @@
 [![Issue Count](https://codeclimate.com/github/JeffDeCola/data-crunch-engine/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/data-crunch-engine/issues)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
 
-`data-crunch-engine` _is a placeholder to add in your data
-crunching algorithms.
-It is built as a using go as a lightweight docker image
-that will receive data, crunch data and return the results.
-This microservice uses protobuf over NATS as an interface.
+_A lightweight asynchronous microservice that will receive data,
+crunch data and return the results where you provide the
+data crunching algorithm._
 
 * The `data-crunch-engine`
   [Docker Image](https://hub.docker.com/r/jeffdecola/data-crunch-engine)
