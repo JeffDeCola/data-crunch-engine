@@ -11,8 +11,7 @@
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
 
 _A lightweight asynchronous microservice that will receive data,
-crunch data and return the results where you provide the
-data crunching algorithm._
+crunch data and return the results. You provide the data crunching algorithm._
 
 * The `data-crunch-engine`
   [Docker Image](https://hub.docker.com/r/jeffdecola/data-crunch-engine)
