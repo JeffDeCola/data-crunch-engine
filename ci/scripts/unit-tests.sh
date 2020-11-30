@@ -75,6 +75,7 @@ echo " "
 
 echo "Clean test_coverage.txt file - add some whitespace to the begining of each line"
 #sed -i -e 's/^/     /' test/test_coverage.txt
+mkdir test
 echo "test" > test/test_coverage.txt
 echo " "
 
