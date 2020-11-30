@@ -13,12 +13,27 @@
 _A lightweight asynchronous microservice that will receive data,
 crunch data and return the results. You provide the data crunching algorithm._
 
+Table of Contents,
+
+* [PREREQUISITES](https://github.com/JeffDeCola/data-crunch-engine#prerequisites)
+* [OVERVIEW](https://github.com/JeffDeCola/data-crunch-engine#overview)
+* [PROTOCOL COMPILE FOR GO](https://github.com/JeffDeCola/data-crunch-engine#protocol-compile-for-go)
+* [RUN USING GO](https://github.com/JeffDeCola/data-crunch-engine#run-using-go)
+* [RUN USING THE DOCKER IMAGE](https://github.com/JeffDeCola/data-crunch-engine#run-using-the-docker-image)
+  * [STEP 1 - TEST](https://github.com/JeffDeCola/data-crunch-engine#step-1---test)
+  * [STEP 2 - BUILD (DOCKER IMAGE VIA DOCKERFILE)](https://github.com/JeffDeCola/data-crunch-engine#step-2---build-docker-image-via-dockerfile)
+  * [STEP 3 - PUSH (TO DOCKERHUB)](https://github.com/JeffDeCola/data-crunch-engine#step-3---push-to-dockerhub)
+  * [STEP 4 - DEPLOY](https://github.com/JeffDeCola/data-crunch-engine#step-4---deploy)
+
+Documentation and reference,
+
 * The `data-crunch-engine`
   [Docker Image](https://hub.docker.com/r/jeffdecola/data-crunch-engine)
-  on DockerHub.
+  on DockerHub
 
-The `data-crunch-engine`
-[GitHub Webpage](https://jeffdecola.github.io/data-crunch-engine/).
+[GitHub Webpage](https://jeffdecola.github.io/data-crunch-engine/)
+_built with
+[concourse ci](https://github.com/JeffDeCola/data-crunch-engine/blob/master/ci-README.md)_
 
 ## PREREQUISITES
 
@@ -205,51 +220,6 @@ There is a `build-push.sh` script to build and push to DockerHub.
 There is also a script in the /ci folder to build and push
 in concourse.
 
-## STEP 4 - DEPLOY
+### STEP 4 - DEPLOY
 
 Now lets deploy, I choose gce, but feel free to deploy to anything you want.
-
-### DEPLOY TO GCE
-
-tbd
-
-## TEST, BUILT, PUSH & DEPLOY USING CONCOURSE (OPTIONAL)
-
-For fun, I use concourse to automate the above steps.
-
-A pipeline file [pipeline.yml](https://github.com/JeffDeCola/data-crunch-engine/tree/master/ci/pipeline.yml)
-shows the entire ci flow. Visually, it looks like,
-
-![IMAGE - data-crunch-engine concourse ci pipeline - IMAGE](docs/pics/data-crunch-engine-pipeline.jpg)
-
-The `jobs` and `tasks` are,
-
-* `job-readme-github-pages` runs task
-  [readme-github-pages.sh](https://github.com/JeffDeCola/data-crunch-engine/tree/master/ci/scripts/readme-github-pages.sh).
-* `job-unit-tests` runs task
-  [unit-tests.sh](https://github.com/JeffDeCola/data-crunch-engine/tree/master/ci/scripts/unit-tests.sh).
-* `job-build-push` runs task
-  [build-push.sh](https://github.com/JeffDeCola/data-crunch-engine/tree/master/ci/scripts/build-push.sh).
-* `job-deploy` runs task
-  [deploy.sh](https://github.com/JeffDeCola/data-crunch-engine/tree/master/ci/scripts/deploy.sh).
-
-The concourse `resources type` are,
-
-* `data-crunch-engine` uses a resource type
-  [docker-image](https://hub.docker.com/r/concourse/git-resource/)
-  to PULL a repo from github.
-* `resource-dump-to-dockerhub` uses a resource type
-  [docker-image](https://hub.docker.com/r/concourse/docker-image-resource/)
-  to PUSH a docker image to dockerhub.
-* `resource-marathon` users a resource type
-  [docker-image](https://hub.docker.com/r/ckaznocha/marathon-resource)
-  to DEPLOY the newly created docker image to marathon.
-* `resource-slack-alert` uses a resource type
-  [docker image](https://hub.docker.com/r/cfcommunity/slack-notification-resource)
-  that will notify slack on your progress.
-* `resource-repo-status` uses a resource type
-  [docker image](https://hub.docker.com/r/dpb587/github-status-resource)
-  that will update your git status for that particular commit.
-
-For more information on using concourse for continuous integration,
-refer to my cheat sheet on [concourse](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/continuous-integration-continuous-deployment/concourse-cheat-sheet).
