@@ -58,6 +58,10 @@ go version
 echo "Get packages"
 echo "go get -u github.com/golang/protobuf/proto"
 go get -u github.com/golang/protobuf/proto
+echo "go get -u github.com/nats-io/nats.go/"
+go get -u github.com/nats-io/nats.go/
+echo "go get -u github.com/sirupsen/logrus"
+go get -u github.com/sirupsen/logrus
 
 echo "ls -la"
 ls -la
