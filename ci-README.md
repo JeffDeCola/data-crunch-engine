@@ -2,14 +2,13 @@
 
 I use concourse ci to,
 
-* Updates
-  [GitHub Webpage](https://jeffdecola.github.io/data-crunch-engine/)
-  * Copies, edits and updates the `README.md` file to `/docs/_includes/README.md`
+* Copy and edit `README.md` to `/docs/_includes/README.md` for
+  [GitHub Webpage](https://jeffdecola.github.io/my-systemverilog-examples/)
 * TEST code
 * BUILD docker image
 * PUSH to dockerhub
 * DEPLOY to marathon
-* Alerts me of the progress via repo status and slack
+* Alert me of the progress via repo status and slack
 
 ## PIPELINE
 
