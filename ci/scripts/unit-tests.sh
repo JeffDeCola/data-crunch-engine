@@ -55,6 +55,10 @@ echo "gopath is: $GOPATH"
 echo "pwd is: $PWD"
 go version
 
+echo "Get packages"
+echo "go get -u github.com/golang/protobuf/proto"
+go get -u github.com/golang/protobuf/proto
+
 echo "ls -la"
 ls -la
 echo " "
