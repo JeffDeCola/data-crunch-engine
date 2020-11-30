@@ -223,3 +223,9 @@ in concourse.
 ### STEP 4 - DEPLOY
 
 Now lets deploy, I choose gce, but feel free to deploy to anything you want.
+
+## CONTINUOUS INTEGRATION & DEPLOYMENT
+
+Refer to
+[ci-README.md](https://github.com/JeffDeCola/data-crunch-engine/blob/master/ci-README.md)
+for how I automated the above process.
