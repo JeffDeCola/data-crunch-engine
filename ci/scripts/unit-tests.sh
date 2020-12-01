@@ -54,6 +54,14 @@ echo "pwd is: $PWD"
 ls -la
 echo " "
 
+echo "Get go packages"
+echo "go get -u github.com/golang/protobuf/proto"
+go get -u github.com/golang/protobuf/proto
+echo "go get -u github.com/nats-io/nats.go/"
+go get -u github.com/nats-io/nats.go/
+echo "go get -u github.com/sirupsen/logrus"
+go get -u github.com/sirupsen/logrus
+
 echo "Run go test -cover"
 echo "   -cover shows the percentage coverage"
 echo "   Put results in /testcode/test_coverage.txt file"
