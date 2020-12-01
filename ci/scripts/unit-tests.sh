@@ -70,7 +70,7 @@ echo " "
 echo "Run go test -cover"
 echo "   -cover shows the percentage coverage"
 echo "   Put results in /test/test_coverage.txt file"
-go test -cover ./... | tee test/test_coverage.txt
+# go test -cover ./... | tee test/test_coverage.txt
 echo " "
 
 echo "Clean test_coverage.txt file - add some whitespace to the begining of each line"
