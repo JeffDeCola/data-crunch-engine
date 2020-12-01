@@ -71,6 +71,8 @@ echo "Run go test -cover"
 echo "   -cover shows the percentage coverage"
 echo "   Put results in /test/test_coverage.txt file"
 # go test -cover ./... | tee test/test_coverage.txt
+mkdir test
+echo "Placeholder to run go tests for my-go-examples" | tee test/test_coverage.txt
 echo " "
 
 echo "Clean test_coverage.txt file - add some whitespace to the begining of each line"
@@ -80,8 +82,8 @@ echo " "
 echo "The test_coverage.txt file will be used by the concourse pipeline to send to slack"
 echo " "
 
-echo "Move text_coverage.txt to /coverage-results directory"
-mv "test/test_coverage.txt" "$START_DIRECTORY/coverage-results/"
+echo "Move test/text_coverage.txt to /coverage-results directory"
+mv "test/test_coverage.txt" "$GOPATH/coverage-results/"
 echo " "
 
 echo "unit-tests.sh (END)"
