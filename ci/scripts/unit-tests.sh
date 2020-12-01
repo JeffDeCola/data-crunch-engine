@@ -30,40 +30,27 @@ echo " "
 echo "pwd is: $PWD"
 echo " "
 
-echo "export START_DIRECTORY=$PWD"
-export START_DIRECTORY="$PWD"
-echo " "
-
 echo "List whats in the current directory"
 ls -la
 echo " "
 
-echo "mkdir -p $GOPATH/src/github.com/JeffDeCola/"
-mkdir -p "$GOPATH/src/github.com/JeffDeCola/"
+echo "Setup the GOPATH based on current directory"
+export GOPATH=$PWD
 echo " "
 
-echo "cp -R ./data-crunch-engine $GOPATH/src/github.com/JeffDeCola/."
-cp -R "./data-crunch-engine" "$GOPATH/src/github.com/JeffDeCola/."
+echo "Now we must move our code from the current directory ./data-crunch-engine to" 
+echo "$GOPATH/src/github.com/JeffDeCola/data-crunch-engine"
+mkdir -p src/github.com/JeffDeCola/
+cp -R ./data-crunch-engine src/github.com/JeffDeCola/.
 echo " "
 
-echo "cd $GOPATH/src/github.com/JeffDeCola/data-crunch-engine"
-cd "$GOPATH/src/github.com/JeffDeCola/data-crunch-engine"
+echo "cd src/github.com/JeffDeCola/data-crunch-engine"
+cd src/github.com/JeffDeCola/data-crunch-engine
 echo " "
 
 echo "Check that you are set and everything is in the right place for go:"
 echo "gopath is: $GOPATH"
 echo "pwd is: $PWD"
-go version
-
-echo "Get packages"
-echo "go get -u github.com/golang/protobuf/proto"
-go get -u github.com/golang/protobuf/proto
-echo "go get -u github.com/nats-io/nats.go/"
-go get -u github.com/nats-io/nats.go/
-echo "go get -u github.com/sirupsen/logrus"
-go get -u github.com/sirupsen/logrus
-
-echo "ls -la"
 ls -la
 echo " "
 
