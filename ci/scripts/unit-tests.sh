@@ -1,5 +1,5 @@
 #!/bin/sh
-# data-crunch-engine unit-test.sh
+# data-crunch-engine unit-tests.sh
 
 echo " "
 
@@ -17,9 +17,15 @@ else
     echo " "
 fi
 
+echo "GOAL ----------------------------------------------------------------------------------"
+echo " "
+
 echo "The goal is to set up a go src/github.com/JeffDeCola/data-crunch-engine directory"
 echo "Then tests will be run in that directory"
 echo "Test coverage results, text_coverage.txt, will be moved to /coverage-results directory"
+echo " "
+
+echo "CHECK THINGS --------------------------------------------------------------------------"
 echo " "
 
 echo "At start, you should be in a /tmp/build/xxxxx directory with two folders:"
@@ -34,51 +40,72 @@ echo "List whats in the current directory"
 ls -la
 echo " "
 
+echo "SETUP GO ------------------------------------------------------------------------------"
+echo " "
+
 echo "Setup the GOPATH based on current directory"
+echo "export GOPATH=\$PWD"
 export GOPATH=$PWD
 echo " "
 
 echo "Now we must move our code from the current directory ./data-crunch-engine to" 
 echo "$GOPATH/src/github.com/JeffDeCola/data-crunch-engine"
+echo "mkdir -p src/github.com/JeffDeCola/"
 mkdir -p src/github.com/JeffDeCola/
+echo "cp -R ./data-crunch-engine src/github.com/JeffDeCola/."
 cp -R ./data-crunch-engine src/github.com/JeffDeCola/.
 echo " "
 
-echo "cd src/github.com/JeffDeCola/data-crunch-engine"
-cd src/github.com/JeffDeCola/data-crunch-engine
+echo "cd src/github.com/JeffDeCola/data-crunch-engine/code"
+cd src/github.com/JeffDeCola/data-crunch-engine/code
 echo " "
 
 echo "Check that you are set and everything is in the right place for go:"
 echo "gopath is: $GOPATH"
 echo "pwd is: $PWD"
+go version
+
+echo "ls -la"
 ls -la
 echo " "
 
-echo "Get go packages"
-echo "go get -u github.com/golang/protobuf/proto"
-go get -u github.com/golang/protobuf/proto
-echo "go get -u github.com/nats-io/nats.go/"
-go get -u github.com/nats-io/nats.go/
-echo "go get -u github.com/sirupsen/logrus"
-go get -u github.com/sirupsen/logrus
-
-echo "Run go test -cover"
-echo "   -cover shows the percentage coverage"
-echo "   Put results in /testcode/test_coverage.txt file"
-mkdir testcode
-# go test -cover ./... | tee testcode/test_coverage.txt
-echo "Placeholder to run go tests for my-go-examples" | tee testcode/test_coverage.txt
+echo "GET GO PACKAGES -----------------------------------------------------------------------"
 echo " "
 
-echo "Clean testcode/test_coverage.txt file - add some whitespace to the begining of each line"
-sed -i -e 's/^/     /' testcode/test_coverage.txt
+# echo "go get -u periph.io/x/periph/cmd/..."
+# go get -u periph.io/x/periph/cmd/...
+# echo " "
+
+echo "RUN TESTS -----------------------------------------------------------------------------"
+echo " "
+
+echo "Run go tests"
+echo "go test -cover ./... | tee test/test_coverage.txt"
+echo "   -cover shows the percentage coverage"
+echo "   Put results in /test/test_coverage.txt file"
+go test -cover ./... | tee test/test_coverage.txt
+
+# echo "TEST PLACEHOLDER -----------------------------------------------------------------------"
+# echo " "
+
+# echo "mkdir -p test"
+# mkdir -p test
+# echo "Placeholder to run go tests for data-crunch-engine" | tee test/test_coverage.txt
+# echo " "
+
+echo "Clean test_coverage.txt file - add some whitespace to the begining of each line"
+echo "sed -i -e 's/^/     /' test/test_coverage.txt"
+sed -i -e 's/^/     /' test/test_coverage.txt
+echo " "
+
+echo "MOVE TEST COVERAGE FILE ---------------------------------------------------------------"
 echo " "
 
 echo "The test_coverage.txt file will be used by the concourse pipeline to send to slack"
 echo " "
 
-echo "Move testcode/text_coverage.txt to /coverage-results directory"
-mv "testcode/test_coverage.txt" "$GOPATH/coverage-results/"
+echo "Move text_coverage.txt to /coverage-results directory"
+mv "test/test_coverage.txt" "$GOPATH/coverage-results/"
 echo " "
 
 echo "unit-tests.sh (END)"

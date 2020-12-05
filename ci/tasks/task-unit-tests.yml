@@ -17,4 +17,3 @@ outputs:
 run:
   path: ./data-crunch-engine/ci/scripts/unit-tests.sh
   # args: [-debug]
-  

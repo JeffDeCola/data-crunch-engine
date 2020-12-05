@@ -15,18 +15,9 @@ crunch data and return the results. You provide the data crunching algorithm._
 
 Table of Contents,
 
-* [PREREQUISITES](https://github.com/JeffDeCola/data-crunch-engine#prerequisites)
-* [OVERVIEW](https://github.com/JeffDeCola/data-crunch-engine#overview)
-* [PROTOCOL COMPILE FOR GO](https://github.com/JeffDeCola/data-crunch-engine#protocol-compile-for-go)
-* [RUN USING GO](https://github.com/JeffDeCola/data-crunch-engine#run-using-go)
-* [RUN USING THE DOCKER IMAGE](https://github.com/JeffDeCola/data-crunch-engine#run-using-the-docker-image)
-  * [STEP 1 - TEST](https://github.com/JeffDeCola/data-crunch-engine#step-1---test)
-  * [STEP 2 - BUILD (DOCKER IMAGE VIA DOCKERFILE)](https://github.com/JeffDeCola/data-crunch-engine#step-2---build-docker-image-via-dockerfile)
-  * [STEP 3 - PUSH (TO DOCKERHUB)](https://github.com/JeffDeCola/data-crunch-engine#step-3---push-to-dockerhub)
-  * [STEP 4 - DEPLOY](https://github.com/JeffDeCola/data-crunch-engine#step-4---deploy)
-* [CONTINUOUS INTEGRATION & DEPLOYMENT](https://github.com/JeffDeCola/data-crunch-engine#continuous-integration--deployment)
+???
 
-Documentation and reference,
+Documentation and references,
 
 * The `data-crunch-engine`
   [Docker Image](https://hub.docker.com/r/jeffdecola/data-crunch-engine)
@@ -38,19 +29,9 @@ _built with
 
 ## PREREQUISITES
 
-Thing you must have on your machine in order to use this repo.
-
-First the language. I used golang,
+I used the following language,
 
 * [go](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/languages/go-cheat-sheet)
-
-To create your protobuf message files your will need the protobuf compiler `protoc`,
-
-* [protobuf](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/software-architectures/messaging/protobuf-cheat-sheet)
-
-You will also need running NATS server,
-
-* [NATS](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/software-architectures/messaging/NATS-cheat-sheet)
 
 To build a docker image you will need docker on your machine,
 
@@ -60,10 +41,52 @@ To push a docker image you will need,
 
 * [DockerHub account](https://hub.docker.com/)
 
-As a bonus, you can use Concourse CI to run the scripts,
+To deploy to `mesos/marathon` you will need,
+
+* [marathon](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/orchestration/cluster-managers-resource-management-scheduling/marathon-cheat-sheet)
+* [mesos](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/orchestration/cluster-managers-resource-management-scheduling/mesos-cheat-sheet)
+
+As a bonus, you can use Concourse CI,
 
 * [concourse](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/operations-tools/continuous-integration-continuous-deployment/concourse-cheat-sheet)
-  (Optional)
+
+## RUN
+
+The following steps are located in
+[run.sh](https://github.com/JeffDeCola/data-crunch-engine/blob/master/code/run.sh).
+
+To run
+[main.go](https://github.com/JeffDeCola/data-crunch-engine/blob/master/code/main.go)
+from the command line,
+
+```bash
+cd code
+go run main.go
+```
+
+Every 2 seconds it will print,
+
+```bash
+Hello everyone, count is: 1
+Hello everyone, count is: 2
+Hello everyone, count is: 3
+etc...
+```
+
+## CREATE BINARY
+
+The following steps are located in
+[create-binary.sh](https://github.com/JeffDeCola/data-crunch-engine/blob/master/code/bin/create-binary.sh).
+
+You can create a binary, but this will not be used
+since it's created during the docker image build.
+
+```bash
+cd code
+go build -o bin/data-crunch main.go
+cd bin
+./data-crunch
+```
 
 ## OVERVIEW
 
@@ -141,36 +164,59 @@ go run data-crunch-engine.go messages.pb.go
 go run results-engine.go messages.pb.go
 ```
 
-## RUN USING THE DOCKER IMAGE
+## CONTINUOUS INTEGRATION & DEPLOYMENT
 
-Now lets take the design and create the docker image.
+Refer to
+[ci-README.md](https://github.com/JeffDeCola/data-crunch-engine/blob/master/ci-README.md)
+on how I automated this process.
 
 ### STEP 1 - TEST
 
-Lets unit test the code,
+The following steps are located in
+[unit-tests.sh](https://github.com/JeffDeCola/data-crunch-engine/tree/master/code/test/unit-tests.sh).
+
+To unit test the code,
 
 ```bash
-go test -cover ./... | tee /test/test_coverage.txt
+cd code
+go test -cover ./... | tee test/test_coverage.txt
+cat test/test_coverage.txt
 ```
 
-There is a `unit-tests.sh` script to run the unit tests.
-There is also a script in the /ci folder to run the unit tests
-in concourse.
+To create `_test` files,
+
+```bash
+gotests -w -all main.go
+```
 
 ### STEP 2 - BUILD (DOCKER IMAGE VIA DOCKERFILE)
 
-We will be using a multi-stage build using a Dockerfile.
+The following steps are located in
+[build.sh](https://github.com/JeffDeCola/data-crunch-engine/blob/master/code/build-push/build.sh).
+
+We will be using a multi-stage build using a
+[Dockerfile](https://github.com/JeffDeCola/data-crunch-engine/blob/master/code/build-push/Dockerfile).
 The end result will be a very small docker image around 13MB.
 
 ```bash
+cd code
 docker build -f build-push/Dockerfile -t jeffdecola/data-crunch-engine .
 ```
 
-Obviously, replace `jeffdecola` with your DockerHub username.
+You can check and test this docker image,
+
+```bash
+docker images jeffdecola/data-crunch-engine:latest
+docker run --name data-crunch-engine -dit jeffdecola/data-crunch-engine
+docker exec -i -t data-crunch-engine /bin/bash
+docker logs data-crunch-engine
+```
+
+#### Stage 1
 
 In stage 1, rather than copy a binary into a docker image (because
-that can cause issue), the Dockerfile will build the binary in the
-docker image.
+that can cause issue), **the Dockerfile will build the binary in the
+docker image.**
 
 If you open the DockerFile you can see it will get the dependencies and
 build the binary in go,
@@ -181,26 +227,16 @@ RUN go get -d -v
 RUN go build -o /go/bin/data-crunch-engine main.go
 ```
 
+#### Stage 2
+
 In stage 2, the Dockerfile will copy the binary created in
 stage 1 and place into a smaller docker base image based
 on `alpine`, which is around 13MB.
 
-You can check and test your docker image,
-
-```bash
-docker run --name data-crunch-engine -dit jeffdecola/data-crunch-engine
-docker exec -i -t data-crunch-engine /bin/bash
-docker logs data-crunch-engine
-docker images jeffdecola/data-crunch-engine:latest
-```
-
-There is a `build-push.sh` script to build and push to DockerHub.
-There is also a script in the /ci folder to build and push
-in concourse.
-
 ### STEP 3 - PUSH (TO DOCKERHUB)
 
-Lets push your docker image to DockerHub.
+The following steps are located in
+[push.sh](https://github.com/JeffDeCola/data-crunch-engine/blob/master/code/build-push/push.sh).
 
 If you are not logged in, you need to login to dockerhub,
 
@@ -208,25 +244,31 @@ If you are not logged in, you need to login to dockerhub,
 docker login
 ```
 
-Once logged in you can push to DockerHub
+Once logged in you can push to DockerHub,
 
 ```bash
 docker push jeffdecola/data-crunch-engine
 ```
 
-Check you image at DockerHub. My image is located
-[https://hub.docker.com/r/jeffdecola/data-crunch-engine](https://hub.docker.com/r/jeffdecola/data-crunch-engine).
+Check the
+[data-crunch-engine](https://hub.docker.com/r/jeffdecola/data-crunch-engine)
+docker image at DockerHub.
 
-There is a `build-push.sh` script to build and push to DockerHub.
-There is also a script in the /ci folder to build and push
-in concourse.
+### STEP 4 - DEPLOY (TO MARATHON)
 
-### STEP 4 - DEPLOY
+The following steps are located in
+[deploy.sh](https://github.com/JeffDeCola/data-crunch-engine/blob/master/code/deploy-marathon/deploy.sh).
 
-Now lets deploy, I choose gce, but feel free to deploy to anything you want.
+Pull the `data-crunch-engine` docker image
+from DockerHub and deploy to mesos/marathon.
 
-## CONTINUOUS INTEGRATION & DEPLOYMENT
+This is actually very simple, you just PUT the
+[app.json](https://github.com/JeffDeCola/data-crunch-engine/blob/master/code/deploy-marathon/app.json)
+file to mesos/marathon. This .json file tells marathon what to do.
 
-Refer to
-[ci-README.md](https://github.com/JeffDeCola/data-crunch-engine/blob/master/ci-README.md)
-for how I automated the above process.
+```bash
+cd deploy-marathon
+curl -X PUT http://192.168.20.117:8080/v2/apps/data-crunch-long-running \
+-d @app.json \
+-H "Content-type: application/json"
+```

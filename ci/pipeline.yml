@@ -115,12 +115,8 @@ jobs:
       params: { state: "pending", description: "STARTED job-deploy in concourse ci.", commit: "data-crunch-engine" }
     - task: task-deploy
       file: data-crunch-engine/ci/tasks/task-deploy.yml
-      params:
-        GCP_JEFFS_APP_SERVICE_ACCOUNT_FILE: {{gcp_jeffs_app_service_account_file}}
-        GCP_JEFFS_APP_SERVICE_ACCOUNT_EMAIL_ADDRESS: {{gcp_jeffs_app_service_account_email_address}}
-        GCP_JEFFS_PROJECT_ID: {{gcp_jeffs_project_id}}
-        GCE_GITHUB_VM_FILE: {{gce_github_vm_file}}
-        GCE_GITHUB_VM_PUB_FILE: {{gce_github_vm_pub_file}}
+    - put: resource-marathon
+      params: {app_json: "data-crunch-engine/code/deploy-marathon/app.json", time_out: 10}
       on_success:
         do:
         - put: resource-slack-alert
@@ -150,6 +146,11 @@ resource_types:
   source:
     repository: dpb587/github-status-resource
     tag: master
+- name: marathon-deploy
+  type: docker-image
+  source:
+   repository: ckaznocha/marathon-resource
+   tag: latest
 
 resources:
 
@@ -176,4 +177,9 @@ resources:
   source:
     repository: jeffdecola/data-crunch-engine 
     access_token: {{repo_github_token}}
+- name: resource-marathon
+  type: marathon-deploy
+  source:
+    app_id: data-crunch-engine-long-run
+    uri: http://192.168.20.117:8080
     
