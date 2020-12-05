@@ -1,0 +1,16 @@
+# data-crunch-engine task-deploy.yml
+
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: golang
+    tag: 1.15.3
+
+inputs:
+- name: data-crunch-engine
+
+run:
+  path: ./data-crunch-engine/ci/scripts/deploy.sh
+  # args: [-debug]
