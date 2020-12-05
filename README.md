@@ -15,7 +15,17 @@ crunch data and return the results. You provide the data crunching algorithm._
 
 Table of Contents,
 
-???
+* [PREREQUISITES](https://github.com/JeffDeCola/data-crunch-engine#prerequisites)
+* [RUN](https://github.com/JeffDeCola/data-crunch-engine#run)
+* [CREATE BINARY](https://github.com/JeffDeCola/data-crunch-engine#create-binary)
+* [OVERVIEW](https://github.com/JeffDeCola/data-crunch-engine#overview)
+* [PROTOCOL COMPILE FOR GO](https://github.com/JeffDeCola/data-crunch-engine#protocol-compile-for-go)
+* [RUN USING GO](https://github.com/JeffDeCola/data-crunch-engine#run-using-go)
+* [CONTINUOUS INTEGRATION & DEPLOYMENT](https://github.com/JeffDeCola/data-crunch-engine#continuous-integration--deployment)
+  * [STEP 1 - TEST](https://github.com/JeffDeCola/data-crunch-engine#step-1---test)
+  * [STEP 2 - BUILD (DOCKER IMAGE VIA DOCKERFILE)](https://github.com/JeffDeCola/data-crunch-engine#step-2---build-docker-image-via-dockerfile)
+  * [STEP 3 - PUSH (TO DOCKERHUB)](https://github.com/JeffDeCola/data-crunch-engine#step-3---push-to-dockerhub)
+  * [STEP 4 - DEPLOY (TO MARATHON)](https://github.com/JeffDeCola/data-crunch-engine#step-4---deploy-to-marathon)
 
 Documentation and references,
 
