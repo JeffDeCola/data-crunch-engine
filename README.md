@@ -15,13 +15,13 @@ crunch data and return the results. You provide the data crunching algorithm._
 
 Table of Contents,
 
+* [OVERVIEW](https://github.com/JeffDeCola/data-crunch-engine#overview)
 * [PREREQUISITES](https://github.com/JeffDeCola/data-crunch-engine#prerequisites)
 * [RUN](https://github.com/JeffDeCola/data-crunch-engine#run)
 * [CREATE BINARY](https://github.com/JeffDeCola/data-crunch-engine#create-binary)
-* [OVERVIEW](https://github.com/JeffDeCola/data-crunch-engine#overview)
 * [PROTOCOL COMPILE FOR GO](https://github.com/JeffDeCola/data-crunch-engine#protocol-compile-for-go)
 * [RUN USING GO](https://github.com/JeffDeCola/data-crunch-engine#run-using-go)
-* [CONTINUOUS INTEGRATION & DEPLOYMENT](https://github.com/JeffDeCola/data-crunch-engine#continuous-integration--deployment)
+* [TEST, BUILD, PUSH & DEPLOY](https://github.com/JeffDeCola/data-crunch-engine#test-build-push--deploy)
   * [STEP 1 - TEST](https://github.com/JeffDeCola/data-crunch-engine#step-1---test)
   * [STEP 2 - BUILD (DOCKER IMAGE VIA DOCKERFILE)](https://github.com/JeffDeCola/data-crunch-engine#step-2---build-docker-image-via-dockerfile)
   * [STEP 3 - PUSH (TO DOCKERHUB)](https://github.com/JeffDeCola/data-crunch-engine#step-3---push-to-dockerhub)
@@ -37,11 +37,36 @@ Documentation and references,
 _built with
 [concourse ci](https://github.com/JeffDeCola/data-crunch-engine/blob/master/ci-README.md)_
 
+## OVERVIEW
+
+This `data-crunch-engine` is,
+
+* Written in go
+* Utilizes goroutines (concurrency)
+* Uses protobuf over NATS for messaging
+* Built to a lightweight Docker Image
+
+This illustration shows a high level view,
+
+![IMAGE - data-crunch-engine-high-level-view - IMAGE](docs/pics/data-crunch-engine-high-level-view.jpg)
+
+Notice that you may have multiple `data-crunch-engine`s running.
+
+And a more detailed view of the data-crunch engine,
+
+![IMAGE - data-crunch-engine - IMAGE](docs/pics/data-crunch-engine.jpg)
+
 ## PREREQUISITES
 
 I used the following language,
 
 * [go](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/languages/go-cheat-sheet)
+
+You will need the following go packages,
+
+```bash
+go get -u -v github.com/sirupsen/logrus
+```
 
 To build a docker image you will need docker on your machine,
 
@@ -74,22 +99,20 @@ cd code
 go run main.go
 ```
 
-Every 2 seconds it will print,
+As a placeholder, every 2 seconds it will print,
 
-```bash
-Hello everyone, count is: 1
-Hello everyone, count is: 2
-Hello everyone, count is: 3
-etc...
+```txt
+    INFO[0000] Let's Start this!
+    Hello everyone, count is: 1
+    Hello everyone, count is: 2
+    Hello everyone, count is: 3
+    etc...
 ```
 
 ## CREATE BINARY
 
 The following steps are located in
 [create-binary.sh](https://github.com/JeffDeCola/data-crunch-engine/blob/master/code/bin/create-binary.sh).
-
-You can create a binary, but this will not be used
-since it's created during the docker image build.
 
 ```bash
 cd code
@@ -98,24 +121,8 @@ cd bin
 ./data-crunch
 ```
 
-## OVERVIEW
-
-This `data-crunch-engine` is,
-
-* Written in go
-* Utilizes goroutines (concurrency)
-* Uses protobuf over NATS for messaging
-* Built to a lightweight Docker Image
-
-This illustration shows a high level view,
-
-![IMAGE - data-crunch-engine-high-level-view - IMAGE](docs/pics/data-crunch-engine-high-level-view.jpg)
-
-Notice that you may have multiple `data-crunch-engine`s running.
-
-And a more detailed view of the data-crunch engine,
-
-![IMAGE - data-crunch-engine - IMAGE](docs/pics/data-crunch-engine.jpg)
+This binary will not be used during a docker build
+since it creates it's own.
 
 ## PROTOCOL COMPILE FOR GO
 
@@ -174,7 +181,7 @@ go run data-crunch-engine.go messages.pb.go
 go run results-engine.go messages.pb.go
 ```
 
-## CONTINUOUS INTEGRATION & DEPLOYMENT
+## TEST, BUILD, PUSH & DEPLOY
 
 Refer to
 [ci-README.md](https://github.com/JeffDeCola/data-crunch-engine/blob/master/ci-README.md)
