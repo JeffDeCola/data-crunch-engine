@@ -29,9 +29,9 @@ Table of Contents,
 
 Documentation and references,
 
-* The `data-crunch-engine`
-  [Docker Image](https://hub.docker.com/r/jeffdecola/data-crunch-engine)
-  on DockerHub
+* The
+  [data-crunch-engine](https://hub.docker.com/r/jeffdecola/data-crunch-engine)
+  docker image on DockerHub
 
 [GitHub Webpage](https://jeffdecola.github.io/data-crunch-engine/)
 _built with
