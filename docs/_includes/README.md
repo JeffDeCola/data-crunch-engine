@@ -145,13 +145,7 @@ go run data-crunch-engine.go messages.pb.go
 go run results-engine.go messages.pb.go
 ```
 
-## TEST, BUILD, PUSH & DEPLOY
-
-Refer to
-[ci-README.md](https://github.com/JeffDeCola/data-crunch-engine/blob/master/ci-README.md)
-on how I automated this process.
-
-### STEP 1 - TEST
+## STEP 1 - TEST
 
 The following steps are located in
 [unit-tests.sh](https://github.com/JeffDeCola/data-crunch-engine/tree/master/code/test/unit-tests.sh).
@@ -170,7 +164,7 @@ To create `_test` files,
 gotests -w -all main.go
 ```
 
-### STEP 2 - BUILD (DOCKER IMAGE VIA DOCKERFILE)
+## STEP 2 - BUILD (DOCKER IMAGE VIA DOCKERFILE)
 
 The following steps are located in
 [build.sh](https://github.com/JeffDeCola/data-crunch-engine/blob/master/code/build-push/build.sh).
@@ -193,10 +187,8 @@ docker exec -i -t data-crunch-engine /bin/bash
 docker logs data-crunch-engine
 ```
 
-#### Stage 1
-
-In stage 1, rather than copy a binary into a docker image (because
-that can cause issue), **the Dockerfile will build the binary in the
+In **stage 1**, rather than copy a binary into a docker image (because
+that can cause issues), **the Dockerfile will build the binary in the
 docker image.**
 
 If you open the DockerFile you can see it will get the dependencies and
@@ -208,13 +200,11 @@ RUN go get -d -v
 RUN go build -o /go/bin/data-crunch-engine main.go
 ```
 
-#### Stage 2
-
-In stage 2, the Dockerfile will copy the binary created in
+In **stage 2**, the Dockerfile will copy the binary created in
 stage 1 and place into a smaller docker base image based
 on `alpine`, which is around 13MB.
 
-### STEP 3 - PUSH (TO DOCKERHUB)
+## STEP 3 - PUSH (TO DOCKERHUB)
 
 The following steps are located in
 [push.sh](https://github.com/JeffDeCola/data-crunch-engine/blob/master/code/build-push/push.sh).
@@ -235,7 +225,7 @@ Check the
 [data-crunch-engine](https://hub.docker.com/r/jeffdecola/data-crunch-engine)
 docker image at DockerHub.
 
-### STEP 4 - DEPLOY (TO MARATHON)
+## STEP 4 - DEPLOY (TO MARATHON)
 
 The following steps are located in
 [deploy.sh](https://github.com/JeffDeCola/data-crunch-engine/blob/master/code/deploy-marathon/deploy.sh).
@@ -253,3 +243,9 @@ curl -X PUT http://192.168.20.117:8080/v2/apps/data-crunch-long-running \
 -d @app.json \
 -H "Content-type: application/json"
 ```
+
+## CONTINUOUS INTEGRATION & DEPLOYMENT
+
+Refer to
+[ci-README.md](https://github.com/JeffDeCola/data-crunch-engine/blob/master/ci-README.md)
+on how I automated the above steps.
