@@ -1,4 +1,4 @@
-module code
+module crunch-code
 
 go 1.19
 
