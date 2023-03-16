@@ -56,8 +56,8 @@ echo "cp -R ./data-crunch-engine src/github.com/JeffDeCola/."
 cp -R ./data-crunch-engine src/github.com/JeffDeCola/.
 echo " "
 
-echo "cd src/github.com/JeffDeCola/data-crunch-engine/code"
-cd src/github.com/JeffDeCola/data-crunch-engine/code
+echo "cd src/github.com/JeffDeCola/data-crunch-engine/data-crunch-engine-code"
+cd src/github.com/JeffDeCola/data-crunch-engine/data-crunch-engine-code
 echo " "
 
 echo "Check that you are set and everything is in the right place for go:"
