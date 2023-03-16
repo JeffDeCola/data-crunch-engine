@@ -11,10 +11,10 @@ coverage.out
 *.jpg:Zone.Identifier
 
 # Ignore binaries
-**/bin/hello-go
+**/bin/data-crunch-engine
 
 # Ignore test coverage
 **/test/test_coverage.txt
 
 # Ignore binary used for docker build
-**/build-push/hello-go
+**/build/data-crunch-engine
