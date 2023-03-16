@@ -35,4 +35,4 @@ plugins:
 # - <pattern>
 exclude_patterns:
 - "docs/"
-- "legacy/"
+- "legacy-code/"
