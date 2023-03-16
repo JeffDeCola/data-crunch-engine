@@ -36,9 +36,9 @@ Documentation and References
   [data-crunch-engine docker image](https://hub.docker.com/r/jeffdecola/data-crunch-engine)
   on DockerHub
 * This repos
-  [github webpage](https://jeffdecola.github.io/data-crunch-engin/)
+  [github webpage](https://jeffdecola.github.io/data-crunch-engine/)
   _built with
-  [concourse](https://github.com/JeffDeCola/data-crunch-engin/blob/master/ci-README.md)_
+  [concourse](https://github.com/JeffDeCola/data-crunch-engine/blob/master/ci-README.md)_
 
 ## OVERVIEW
 
