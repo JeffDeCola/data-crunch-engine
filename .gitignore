@@ -7,11 +7,14 @@ coverage.out
 # macOS
 .DS_Store
 
+# WINDOWS
+*.jpg:Zone.Identifier
+
 # Ignore binaries
-**/bin/data-crunch
+**/bin/hello-go
 
 # Ignore test coverage
 **/test/test_coverage.txt
 
 # Ignore binary used for docker build
-**/build-push/data-crunch
+**/build-push/hello-go

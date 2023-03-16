@@ -2,17 +2,18 @@
 
 platform: linux
 
+# DOCKER BASE IMAGE FOR TASKS (BASED ON ALPINE, A SMALLER LINUX DISTRIBUTION)
 image_resource:
   type: docker-image
   source:
     repository: golang
-    tag: 1.15.3
+    tag: 1.20.1
 
 inputs:
-- name: data-crunch-engine
+  - name: data-crunch-engine
 
 outputs:
-- name: data-crunch-engine-updated
+  - name: data-crunch-engine-updated
 
 run:
   path: ./data-crunch-engine/ci/scripts/readme-github-pages.sh
