@@ -14,7 +14,7 @@ I use concourse to automate,
 
 The concourse
 [pipeline.yml](https://github.com/JeffDeCola/data-crunch-engine/blob/master/ci/pipeline.yml)
-shows the entire ci flow. Visually, it looks like,
+shows the entire ci flow,
 
 ![IMAGE - data-crunch-engine concourse ci pipeline - IMAGE](docs/pics/data-crunch-engine-pipeline.jpg)
 
