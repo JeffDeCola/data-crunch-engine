@@ -1,16 +1,14 @@
 # DATA CRUNCH ENGINE
 
 [![Tag Latest](https://img.shields.io/github/v/tag/jeffdecola/data-crunch-engine)](https://github.com/JeffDeCola/data-crunch-engine/tags)
+[![jeffdecola.com](https://img.shields.io/badge/website-jeffdecola.com-blue)](https://jeffdecola.com)
+[![MIT License](https://img.shields.io/:license-mit-blue.svg)](https://jeffdecola.mit-license.org)
 [![Go Reference](https://pkg.go.dev/badge/github.com/JeffDeCola/data-crunch-engine.svg)](https://pkg.go.dev/github.com/JeffDeCola/data-crunch-engine)
 [![Go Report Card](https://goreportcard.com/badge/github.com/JeffDeCola/data-crunch-engine)](https://goreportcard.com/report/github.com/JeffDeCola/data-crunch-engine)
-[![codeclimate Maintainability](https://api.codeclimate.com/v1/badges/6ed9dfb17eedad9c40ee/maintainability)](https://codeclimate.com/github/JeffDeCola/data-crunch-engine/maintainability)
-[![codeclimate Issue Count](https://codeclimate.com/github/JeffDeCola/data-crunch-engine/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/data-crunch-engine/issues)
 [![Docker Pulls](https://badgen.net/docker/pulls/jeffdecola/data-crunch-engine?icon=docker&label=pulls)](https://hub.docker.com/r/jeffdecola/data-crunch-engine/)
-[![MIT License](https://img.shields.io/:license-mit-blue.svg)](https://jeffdecola.mit-license.org)
-[![jeffdecola.com](https://img.shields.io/badge/website-jeffdecola.com-blue)](https://jeffdecola.com)
 
 ```text
-*** THE REPO IS UNDER CONSTRUCTION - CHECK BACK SOON ***
+*** THIS CHEAT SHEET IS UNDER CONSTRUCTION - CHECK BACK SOON ***
 ```
 
 _A lightweight asynchronous microservice that will receive data,
@@ -32,8 +30,7 @@ Table of Contents
 
 Documentation and References
 
-* The
-  [data-crunch-engine docker image](https://hub.docker.com/r/jeffdecola/data-crunch-engine)
+* [data-crunch-engine docker image](https://hub.docker.com/r/jeffdecola/data-crunch-engine)
   on DockerHub
 * This repos
   [github webpage](https://jeffdecola.github.io/data-crunch-engine/)
@@ -51,13 +48,13 @@ This `data-crunch-engine` is,
 
 This illustration shows a high level view,
 
-![IMAGE - data-crunch-engine-high-level-view - IMAGE](docs/pics/data-crunch-engine-high-level-view.jpg)
+![IMAGE - data-crunch-engine-high-level-view - IMAGE](docs/pics/data-crunch-engine-high-level-view.svg)
 
 Notice that you may have multiple `data-crunch-engine`s running.
 
 And a more detailed view of the data-crunch engine,
 
-![IMAGE - data-crunch-engine - IMAGE](docs/pics/data-crunch-engine.jpg)
+![IMAGE - data-crunch-engine - IMAGE](docs/pics/data-crunch-engine.svg)
 
 ## PREREQUISITES
 
